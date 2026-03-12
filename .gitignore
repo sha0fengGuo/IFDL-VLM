@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# Environments
+.venv/
+venv/
+.env
+
+# Logs and reports
+*.log
+*.out
+*.err
+runs/
+wandb/
+
+# Model artifacts
+checkpoints/
+rebuttal_checkpoints/
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.safetensors
+
+# # Data artifacts
+# data/
+# playground/data/
+# *.jsonl
+
+# IDE
+.vscode/
+.idea/
