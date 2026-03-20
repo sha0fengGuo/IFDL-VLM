@@ -25,9 +25,9 @@
 - [FAQ](#-faq)
 - [Contributing](#-contributing)
 - [Citation](#-citation)
-- [Acknowledgements](#-acknowledgements)
-- [License](#-license)
 - [Contact](#-contact)
+- [License](#-license)
+- [Acknowledgements](#-acknowledgements)
 
 ---
 
