@@ -244,5 +244,5 @@ Licensed under **MIT**. See [LICENSE](LICENSE) for full terms.
 ## 🙏 Acknowledgements
 This project builds upon and/or references the following open-source efforts:
 - [LLaVA](https://github.com/haotian-liu/LLaVA)
-- Stage-1 baseline code from earlier SIDA submission
+- Stage-1 baseline code from earlier SIDA submission ([SIDA](https://github.com/hzlsaber/SIDA?tab=readme-ov-file))
 
