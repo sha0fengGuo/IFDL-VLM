@@ -3,7 +3,7 @@
 > Official codebase for **IFDL-VLM** (two-stage training & inference pipeline).
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](#installation)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.x-red)](#installation)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.4-red)](#installation)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![CVPR 2026 Findings](https://img.shields.io/badge/CVPR-2026_Findings-228b22)](https://arxiv.org/abs/2603.12930)
 
