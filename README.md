@@ -4,7 +4,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](#installation)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.x-red)](#installation)
-[![License](https://img.shields.io/badge/License-TBD-lightgrey)](#license)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![CVPR 2026 Findings](https://img.shields.io/badge/CVPR-2026_Findings-228b22)](https://arxiv.org/abs/2603.12930)
 
 ---
@@ -34,7 +34,7 @@
 ## 🧠 Overview
 This repository contains two stages of code for the **IFDL-VLM** project:
 
-- `stage1/`: Stage-1 code (from the earlier SIDA submission), including training and testing scripts.
+- `stage1/`: Stage-1 code (from the earlier SIDA submission), including training and testing scripts. Baseline reference: [SIDA](https://github.com/hzlsaber/SIDA?tab=readme-ov-file).
 - `stage2/`: Stage-2 code based on LLaVA, including training/inference pipelines and the core `llava` package.
 
 > 🎉 Accepted at **CVPR 2026 Findings**. Paper: [arXiv:2603.12930](https://arxiv.org/abs/2603.12930)
@@ -229,22 +229,20 @@ If you find this project helpful, please cite:
 
 ---
 
-## 🙏 Acknowledgements
-This project builds upon and/or references the following open-source efforts:
-- [LLaVA](https://github.com/haotian-liu/LLaVA)
-- Stage-1 baseline code from earlier SIDA submission
-
----
-
-## 📄 License
-License information is **to be specified**.
-
-If you plan to make this repository public, add a `LICENSE` file (e.g., Apache-2.0 / MIT) and update this section.
-
----
-
 ## 📮 Contact
 For questions and collaboration requests:
 - Open a GitHub issue
 - Or contact the maintainers via email: shaofengGuo@mail.hfut.edu.cn
+
+---
+
+## 📄 License
+Licensed under **MIT**. See [LICENSE](LICENSE) for full terms.
+
+---
+
+## 🙏 Acknowledgements
+This project builds upon and/or references the following open-source efforts:
+- [LLaVA](https://github.com/haotian-liu/LLaVA)
+- Stage-1 baseline code from earlier SIDA submission
 
