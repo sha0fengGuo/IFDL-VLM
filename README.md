@@ -5,6 +5,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](#installation)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.x-red)](#installation)
 [![License](https://img.shields.io/badge/License-TBD-lightgrey)](#license)
+[![CVPR 2026 Findings](https://img.shields.io/badge/CVPR-2026_Findings-228b22)](https://arxiv.org/abs/2603.12930)
 
 ---
 
@@ -36,6 +37,8 @@ This repository contains two stages of code for the **IFDL-VLM** project:
 - `stage1/`: Stage-1 code (from the earlier SIDA submission), including training and testing scripts.
 - `stage2/`: Stage-2 code based on LLaVA, including training/inference pipelines and the core `llava` package.
 
+> 🎉 Accepted at **CVPR 2026 Findings**. Paper: [arXiv:2603.12930](https://arxiv.org/abs/2603.12930)
+
 > Current repo focuses on **code release**. Datasets, checkpoints, and logs are not included.
 
 ---
@@ -64,6 +67,7 @@ See detailed docs:
 ---
 
 ## 📰 News
+- **2026-03**: Paper accepted to **CVPR 2026 Findings**. Preprint: [arXiv:2603.12930](https://arxiv.org/abs/2603.12930)
 - **2026-03**: Repository structure consolidated and root README improved.
 - *(Add future updates here, e.g., checkpoint release / paper acceptance / benchmark updates.)*
 
@@ -218,7 +222,8 @@ If you find this project helpful, please cite:
 @article{ifdl_vlm_2026,
   title   = {IFDL-VLM: [Paper Title]},
   author  = {[Author List]},
-  journal = {arXiv preprint arXiv:xxxx.xxxxx},
+  journal = {CVPR 2026 (Findings)},
+  note    = {arXiv:2603.12930},
   year    = {2026}
 }
 ```
