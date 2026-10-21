@@ -1,222 +1,157 @@
-# IFDL-VLM - CVPR 2026 Findings
+# IFDL-VLM — CVPR 2026 Findings
 
-> Official codebase for **IFDL-VLM** (two-stage image forgery detection and localization training & inference pipeline).
+[English](README.md) · [中文](README_CN.md)
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](#installation)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.4-red)](#installation)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![CVPR 2026 Findings](https://img.shields.io/badge/CVPR-2026_Findings-228b22)](https://arxiv.org/abs/2603.12930)
+> Official code for **IFDL-VLM**, a two-stage vision-language pipeline for image forgery detection and localization.
 
----
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](#installation) [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE) [![Paper](https://img.shields.io/badge/CVPR%202026%20Findings-paper-228b22)](https://arxiv.org/abs/2603.12930)
 
-## 📌 Table of Contents
-- [Overview](#-overview)
-- [Project Structure](#-project-structure)
-- [Roadmap / TODO](#-roadmap--todo)
-- [News](#-news)
-- [Environment & Installation](#-environment--installation)
-- [Data Preparation](#-data-preparation)
-- [Training](#-training)
-- [Evaluation](#-evaluation)
-- [Inference](#-inference)
-- [Reproducibility Checklist](#-reproducibility-checklist)
-- [Model Zoo](#-model-zoo)
-- [Results](#-results)
-- [FAQ](#-faq)
-- [Contributing](#-contributing)
-- [Citation](#-citation)
-- [Contact](#-contact)
-- [License](#-license)
-- [Acknowledgements](#-acknowledgements)
+## Overview
 
----
+IFDL-VLM studies how vision-language models should use semantic priors for image forgery detection and localization. The release contains two stages:
 
-## 🧠 Overview
-This repository contains two stages of code for the **IFDL-VLM** project:
+- `stage1/`: the Stage-1 detection/localization code, based on the earlier SIDA code path.
+- `stage2/`: the Stage-2 LLaVA-based training and inference code, including the region-aware training option.
 
-- `stage1/`: Stage-1 code (from the earlier SIDA submission), including training and testing scripts. Baseline reference: [SIDA](https://github.com/hzlsaber/SIDA?tab=readme-ov-file).
-- `stage2/`: Stage-2 code based on LLaVA, including training/inference pipelines and the core `llava` package.
+Paper: [Rethinking VLMs for Image Forgery Detection and Localization](https://arxiv.org/abs/2603.12930) · Code release: [this repository](https://github.com/sha0fengGuo/IFDL-VLM)
 
-> 🎉 Accepted at **CVPR 2026 Findings**. Paper: [arXiv:2603.12930](https://arxiv.org/abs/2603.12930)
+Datasets, checkpoints, and experiment assets are provided separately from the source code.
 
-> Current repo focuses on **code release**. Datasets, checkpoints, and logs are not included.
+## Repository layout
 
----
-
-## 📁 Project Structure
 ```text
 IFDL-VLM/
-├── stage1/                  # Stage-1 training / testing code
-├── stage2/                  # Stage-2 (LLaVA-based) training / inference code
-└── README.md
+├── stage1/
+│   ├── model/                 # Stage-1 model and segmentation components
+│   ├── utils/                 # Dataset and utility code
+│   ├── train_simple.py        # Stage-1 training entry point
+│   ├── test_simple.py         # Stage-1 evaluation entry point
+│   ├── train_simple.sh        # Example DeepSpeed launcher
+│   └── test.sh                # Example evaluation launcher
+├── stage2/
+│   ├── llava/                 # LLaVA-based model, training, serving, and eval code
+│   ├── train_mem.py           # Training entry point
+│   ├── inference.py           # Single-image inference entry point
+│   ├── train.sh               # Example Stage-2 launcher
+│   └── model_load.py          # Model-loading utilities
+├── REPRODUCTION.md            # Detailed English reproduction guide
+├── REPRODUCTION_CN.md         # 中文复现说明
+└── README_CN.md               # 中文项目说明
 ```
 
-See detailed docs:
-- `stage1/README.md`
-- `stage2/README.md`
+## Installation
 
----
+Use separate environments for Stage 1 and Stage 2 when their CUDA/PyTorch requirements conflict. The repository records the currently used dependency sets in:
 
-## 🗺️ Roadmap / TODO
-- [x] Release Stage-1 and Stage-2 training/inference code.
-- [ ] Release cleaned training/validation split scripts.
-- [ ] Release pretrained checkpoints.
-- [ ] Release evaluation benchmark scripts and fixed seeds.
-- [ ] Provide one-command reproduction pipeline.
+- `stage1/requirements.txt` and `stage1/environment.yml`
+- `stage2/requirements.txt` and `stage2/environment.yml`
 
----
+The short setup is:
 
-## 📰 News
-- **2026-03**: Paper accepted to **CVPR 2026 Findings**. Preprint: [arXiv:2603.12930](https://arxiv.org/abs/2603.12930)
-- **2026-03**: Repository structure consolidated and root README improved.
-- *(Add future updates here, e.g., checkpoint release / paper acceptance / benchmark updates.)*
-
----
-
-## ⚙️ Environment & Installation
-
-### 1) Create environment
 ```bash
+git clone https://github.com/sha0fengGuo/IFDL-VLM.git
+cd IFDL-VLM
 conda create -n ifdl-vlm python=3.10 -y
 conda activate ifdl-vlm
 ```
 
-### 2) Install dependencies
-Because Stage-1 and Stage-2 may use different dependency sets, please install according to each stage:
+Install one stage at a time:
 
 ```bash
-# Stage-1 dependencies
-cd stage1
-# e.g. pip install -r requirements.txt
+# Stage 1
+python -m pip install -r stage1/requirements.txt
 
-# Stage-2 dependencies
-cd ../stage2
-# e.g. pip install -r requirements.txt
+# Stage 2 (prefer a separate environment)
+python -m pip install -r stage2/requirements.txt
 ```
 
-> If CUDA/torch versions conflict between stages, consider using separate conda environments.
+The requirements files contain CUDA-specific PyTorch packages. Adjust them for the CUDA toolchain on the target machine if installation fails; record the final versions before reporting reproduction results.
 
----
+## Data and model paths
 
-## 🗂️ Data Preparation
+Datasets and model weights are not included. Keep them outside the repository and pass absolute paths to the scripts.
 
-### Expected directory layout (example)
+Stage 1 expects a SID_SET-style dataset directory and a SAM/CLIP vision setup. Stage 2 expects:
+
 ```text
-/path/to/datasets/
-├── dataset_a/
-│   ├── images/
-│   └── annotations/
-└── dataset_b/
-    ├── images/
-    └── annotations/
+/path/to/data/
+├── train.json          # conversation/instruction records
+└── images/             # image files referenced by train.json
 ```
 
-### Notes
-- Pass dataset paths via CLI arguments or environment variables.
-- Do **not** commit datasets to this repository.
-- Keep private/proprietary data outside this repo.
+The exact annotation format must match the loader used by the selected stage. Do not commit private data, credentials, or model weights.
 
----
+## Quick start
 
-## 🏋️ Training
-Please follow stage-specific instructions:
+### Stage 1 training
 
-### Stage-1
+Edit the paths and GPU list in `stage1/train_simple.sh`, then run:
+
 ```bash
 cd stage1
-# bash scripts/train_stage1.sh
+bash train_simple.sh
 ```
 
-### Stage-2
-```bash
-cd stage2
-# bash scripts/train_stage2.sh
-```
+The script is an example launcher. In particular, update `DATASET_DIR`, `VISION_PRETRAINED`, `EXP_NAME`, and the DeepSpeed GPU selection before running it.
 
-> Replace script names/arguments with those provided in each stage directory.
+### Stage 1 evaluation
 
----
-
-## 📏 Evaluation
 ```bash
 cd stage1
-# bash scripts/eval_stage1.sh
-
-cd ../stage2
-# bash scripts/eval_stage2.sh
+CUDA_VISIBLE_DEVICES=0 bash test.sh
 ```
 
-Recommended report items for paper reproduction:
-- checkpoint path
-- random seed
-- dataset split/version
-- evaluation metric implementation
-- hardware (GPU type and count)
+Update `--ckpt_path`, `--dataset_dir`, `--vision_tower`, and `--image_size` in `test.sh` first.
 
----
+### Stage 2 training
 
-## 🔍 Inference
+From the `stage2/` directory:
+
 ```bash
 cd stage2
-# python -m llava.serve.cli --model-path <ckpt_path> ...
+CUDA_VISIBLE_DEVICES=0 \
+DATA_PATH=/absolute/path/to/train.json \
+IMAGE_FOLDER=/absolute/path/to/images \
+OUTPUT_DIR=/absolute/path/to/output \
+PRETRAIN_MM_MLP_ADAPTER=/absolute/path/to/mm_projector.bin \
+bash train.sh
 ```
 
-For batch inference, add your own wrapper script and save outputs to a non-versioned path (e.g., `./outputs/` ignored by git).
+The default launcher uses `liuhaotian/llava-v1.5-13b`, CLIP ViT-L/14 at 336px, LoRA, region-aware training, and four training epochs. Change these settings only after recording the change in your experiment log.
 
----
+### Stage 2 single-image inference
 
-## ✅ Reproducibility Checklist
-- [ ] Fixed random seed for training/evaluation.
-- [ ] Exact dependency versions recorded.
-- [ ] Data split scripts and IDs released.
-- [ ] Training logs and tensorboard curves archived.
-- [ ] Final checkpoints with SHA256 checksums provided.
+```bash
+cd stage2
+python inference.py \
+  --model-path /absolute/path/to/model_or_lora_dir \
+  --image-path /absolute/path/to/image.jpg \
+  --mask-path /absolute/path/to/mask.png \
+  --query "Describe whether the image is real, synthetic, or tampered."
+```
 
----
+For the full command context and expected inputs, see [REPRODUCTION.md](REPRODUCTION.md) and [stage2/README.md](stage2/README.md).
 
-## 🧩 Model Zoo
-| Model | Stage | Description | Link |
-|---|---|---|---|
-| IFDL-VLM-Stage1 | Stage-1 | Base training checkpoint | TBA |
-| IFDL-VLM-Stage2 | Stage-2 | Instruction-tuned checkpoint | TBA |
+## Reproduction status
 
-> Add links after release (Google Drive / HuggingFace / ModelScope).
+The reproduction guide records the expected environments, paths, commands, and run metadata for the released code.
 
----
+- [English reproduction guide](REPRODUCTION.md)
+- [中文复现说明](REPRODUCTION_CN.md)
 
-## 📊 Results
-| Setting | Dataset | Metric | Score |
-|---|---|---|---|
-| Stage-1 baseline | TBA | TBA | TBA |
-| Stage-2 full model | TBA | TBA | TBA |
+## Release checklist
 
-> Please fill with the exact numbers reported in your paper / appendix.
+Before calling a run reproducible, record:
 
----
+- commit SHA and environment file used
+- CUDA, PyTorch, Transformers, and DeepSpeed versions
+- dataset name, split, preprocessing, and annotation version
+- base model and checkpoint path (or public download URL)
+- GPU type/count, batch size, gradient accumulation, and random seed
+- exact command line and output directory
+- evaluation script, metrics, and per-dataset results
 
-## ❓ FAQ
-**Q1: Why are datasets/checkpoints not included?**  
-A: Due to data license / storage constraints, only source code is currently released.
-
-**Q2: Can I train Stage-1 and Stage-2 in one environment?**  
-A: It depends on dependency compatibility. Using separate environments is safer.
-
-**Q3: Where should I report bugs?**  
-A: Please open an issue with environment details, reproduction steps, and logs.
-
----
-
-## 🤝 Contributing
-Contributions are welcome!
-
-- Open an issue for bug reports or feature requests.
-- Submit a pull request with clear description and reproducible changes.
-- Keep commits small and focused.
-
----
-
-## 📚 Citation
-If you find this project helpful, please cite:
+## Citation
 
 ```bibtex
 @article{guo2026rethinking,
@@ -227,22 +162,10 @@ If you find this project helpful, please cite:
 }
 ```
 
----
+## License and contact
 
-## 📮 Contact
-For questions and collaboration requests:
-- Open a GitHub issue
-- Or contact the maintainers via email: shaofengGuo@mail.hfut.edu.cn
+The source code is released under the [MIT License](LICENSE). For questions, open a GitHub issue or email `shaofengGuo@mail.hfut.edu.cn`.
 
----
+## Acknowledgements
 
-## 📄 License
-Licensed under **MIT**. See [LICENSE](LICENSE) for full terms.
-
----
-
-## 🙏 Acknowledgements
-This project builds upon and/or references the following open-source efforts:
-- [LLaVA](https://github.com/haotian-liu/LLaVA)
-- Stage-1 baseline code from earlier SIDA submission ([SIDA](https://github.com/hzlsaber/SIDA?tab=readme-ov-file))
-
+This project builds upon [LLaVA](https://github.com/haotian-liu/LLaVA) and the earlier [SIDA](https://github.com/hzlsaber/SIDA) code path.

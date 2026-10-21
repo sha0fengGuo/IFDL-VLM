@@ -1,5 +1,7 @@
 # Stage 2 (LLaVA-based)
 
+[English](README.md) · [中文](README_CN.md)
+
 This folder keeps the Stage-2 codebase with the original LLaVA-style structure preserved as much as possible.
 
 ## Included

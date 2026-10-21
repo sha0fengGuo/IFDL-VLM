@@ -1,5 +1,7 @@
 # Stage 1
 
+[English](README.md) · [中文](README_CN.md)
+
 This folder contains Stage-1 training/testing code.
 
 ## Included
