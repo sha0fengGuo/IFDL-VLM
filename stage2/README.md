@@ -11,11 +11,11 @@ This folder keeps the Stage-2 codebase with the original LLaVA-style structure p
 - `train.sh`, `train_mem.py`
 - `model_load.py`
 
-## Excluded
+## Runtime inputs
 
-- datasets
-- checkpoints/weights
-- logs/results artifacts
+- dataset and annotation paths
+- checkpoint and vision-weight paths
+- log/output directories
 
 ## Environment
 

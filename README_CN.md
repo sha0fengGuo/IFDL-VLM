@@ -55,7 +55,7 @@ python -m pip install -r stage2/requirements.txt
 
 ## 数据和模型路径
 
-数据集和模型权重不包含在仓库中，请放在仓库外，并向脚本传入绝对路径。
+数据集和模型路径在代码目录外配置，并以绝对路径传给脚本。
 
 Stage 1 需要 SID_SET 风格的数据目录和 SAM/CLIP 视觉组件。Stage 2 需要类似下面的目录：
 

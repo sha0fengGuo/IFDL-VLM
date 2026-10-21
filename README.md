@@ -69,7 +69,7 @@ The requirements files contain CUDA-specific PyTorch packages. Adjust them for t
 
 ## Data and model paths
 
-Datasets and model weights are not included. Keep them outside the repository and pass absolute paths to the scripts.
+Dataset and model paths are configured outside the source tree and passed as absolute paths to the scripts.
 
 Stage 1 expects a SID_SET-style dataset directory and a SAM/CLIP vision setup. Stage 2 expects:
 

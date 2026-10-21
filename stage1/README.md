@@ -11,11 +11,11 @@ This folder contains Stage-1 training/testing code.
 - `model/`, `utils/`
 - `environment.yml`
 
-## Excluded
+## Runtime inputs
 
-- datasets
-- checkpoints/weights
-- logs/cache files
+- dataset and annotation paths
+- checkpoint and vision-weight paths
+- log/output directories
 
 ## Run
 
