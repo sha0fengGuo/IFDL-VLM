@@ -17,6 +17,43 @@ Paper: [Rethinking VLMs for Image Forgery Detection and Localization](https://ar
 
 Datasets, checkpoints, and experiment assets are provided separately from the source code.
 
+## Checkpoints and pretrained weights
+
+The conference-version checkpoints are currently shared through Quark Drive:
+
+- [Download IFDL-VLM-ckpts from Quark Drive](https://pan.quark.cn/s/10405462744?pwd=Yq8L) (extraction code: `Yq8L`)
+- The folder contains the Stage-1 SID-Set checkpoint, the Stage-1 FakeShield checkpoint, and the Stage-2 region-aware LLaVA-13B LoRA checkpoint.
+- A Google Drive mirror will be added in a later update. The download location may be updated without changing the checkpoint names.
+
+The release package corresponds to the following files:
+
+```text
+ifdl-vlm-stage1-sidset.bin       # SID-Set classification and localization
+ifdl-vlm-stage1-fakeshield.bin  # FakeShield localization
+stage2_llava13b_regionaware_alpha0.5_epoch4/
+                                 # Stage-2 explanation LoRA checkpoint
+```
+
+### Download pretrained SAM weight
+
+Stage 1 uses the SAM ViT-H pretrained weight. You can download it with:
+
+```bash
+mkdir -p weight
+wget https://huggingface.co/ybelkada/segment-anything/resolve/main/checkpoints/sam_vit_h_4b8939.pth -P weight/
+```
+
+### Download the CLIP vision encoder
+
+The released configuration uses `openai/clip-vit-large-patch14-336` (336px CLIP ViT-L/14). Download it from Hugging Face with:
+
+```bash
+huggingface-cli download openai/clip-vit-large-patch14-336 \
+  --local-dir weight/clip-vit-large-patch14-336
+```
+
+Model page: [openai/clip-vit-large-patch14-336](https://huggingface.co/openai/clip-vit-large-patch14-336)
+
 ## Repository layout
 
 ```text

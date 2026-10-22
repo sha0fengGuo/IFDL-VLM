@@ -17,6 +17,43 @@ IFDL-VLM 研究视觉语言模型中的语义先验应当如何服务于图像�
 
 数据集、模型权重和实验材料将与源代码分开提供。
 
+## 权重与预训练模型
+
+会议论文版本的权重目前通过夸克网盘临时分享：
+
+- [通过夸克网盘下载 IFDL-VLM-ckpts](https://pan.quark.cn/s/10405462744?pwd=Yq8L)（提取码：`Yq8L`）
+- 文件夹中包含 Stage 1 的 SID-Set 权重、Stage 1 的 FakeShield 权重，以及 Stage 2 的区域感知 LLaVA-13B LoRA 权重。
+- 后续会补充 Google Drive 镜像链接。链接更新时不会改变这些权重的文件名。
+
+当前发布包中的文件对应关系如下：
+
+```text
+ifdl-vlm-stage1-sidset.bin       # SID-Set 分类与定位
+ifdl-vlm-stage1-fakeshield.bin  # FakeShield 定位
+stage2_llava13b_regionaware_alpha0.5_epoch4/
+                                 # Stage 2 解释模型 LoRA 权重
+```
+
+### 下载预训练 SAM 权重
+
+Stage 1 使用 SAM ViT-H 预训练权重，可以运行下面的命令下载：
+
+```bash
+mkdir -p weight
+wget https://huggingface.co/ybelkada/segment-anything/resolve/main/checkpoints/sam_vit_h_4b8939.pth -P weight/
+```
+
+### 下载 CLIP 视觉编码器
+
+当前配置使用 `openai/clip-vit-large-patch14-336`，即 336px 的 CLIP ViT-L/14。可以使用 Hugging Face 命令下载：
+
+```bash
+huggingface-cli download openai/clip-vit-large-patch14-336 \
+  --local-dir weight/clip-vit-large-patch14-336
+```
+
+模型页面：[openai/clip-vit-large-patch14-336](https://huggingface.co/openai/clip-vit-large-patch14-336)
+
 ## 目录结构
 
 ```text
