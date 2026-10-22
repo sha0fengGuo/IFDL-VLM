@@ -17,11 +17,18 @@ IFDL-VLM 研究视觉语言模型中的语义先验应当如何服务于图像�
 
 数据集、模型权重和实验材料将与源代码分开提供。
 
+数据集获取和原始数据协议请参考以下上游仓库：
+
+- [SIDA](https://github.com/hzlsaber/SIDA)：SID-Set 数据及相关准备说明。
+- [FakeShield](https://github.com/zhipeixu/FakeShield)：FakeShield 数据及相关实验协议。
+
+本仓库不重复分发数据集。请按照对应上游项目的许可协议和下载说明获取数据。
+
 ## 权重与预训练模型
 
 会议论文版本的权重目前通过夸克网盘临时分享：
 
-- [通过夸克网盘下载 IFDL-VLM-ckpts](https://pan.quark.cn/s/10405462744?pwd=Yq8L)（提取码：`Yq8L`）
+- [通过夸克网盘下载 IFDL-VLM-ckpts](https://pan.quark.cn/s/f6e20cd50685?pwd=t4kC)（提取码：`t4kC`）
 - [单独下载 Stage 2 LLaVA-13B 权重](https://pan.quark.cn/s/772e7c439ec9?pwd=5k5b)（提取码：`5k5b`）
 - 文件夹中包含 Stage 1 的 SID-Set 权重、Stage 1 的 FakeShield 权重，以及 Stage 2 的区域感知 LLaVA-13B LoRA 权重。
 - 后续会补充 Google Drive 镜像链接。链接更新时不会改变这些权重的文件名。
