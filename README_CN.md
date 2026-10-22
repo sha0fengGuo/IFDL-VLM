@@ -22,6 +22,7 @@ IFDL-VLM 研究视觉语言模型中的语义先验应当如何服务于图像�
 会议论文版本的权重目前通过夸克网盘临时分享：
 
 - [通过夸克网盘下载 IFDL-VLM-ckpts](https://pan.quark.cn/s/10405462744?pwd=Yq8L)（提取码：`Yq8L`）
+- [单独下载 Stage 2 LLaVA-13B 权重](https://pan.quark.cn/s/772e7c439ec9?pwd=5k5b)（提取码：`5k5b`）
 - 文件夹中包含 Stage 1 的 SID-Set 权重、Stage 1 的 FakeShield 权重，以及 Stage 2 的区域感知 LLaVA-13B LoRA 权重。
 - 后续会补充 Google Drive 镜像链接。链接更新时不会改变这些权重的文件名。
 

@@ -22,6 +22,7 @@ Datasets, checkpoints, and experiment assets are provided separately from the so
 The conference-version checkpoints are currently shared through Quark Drive:
 
 - [Download IFDL-VLM-ckpts from Quark Drive](https://pan.quark.cn/s/10405462744?pwd=Yq8L) (extraction code: `Yq8L`)
+- [Download the Stage-2 LLaVA-13B checkpoint separately](https://pan.quark.cn/s/772e7c439ec9?pwd=5k5b) (extraction code: `5k5b`)
 - The folder contains the Stage-1 SID-Set checkpoint, the Stage-1 FakeShield checkpoint, and the Stage-2 region-aware LLaVA-13B LoRA checkpoint.
 - A Google Drive mirror will be added in a later update. The download location may be updated without changing the checkpoint names.
 
